@@ -1,0 +1,70 @@
+1. Download starter code
+----------------------------
+2. Add browser router 
+-Inside your index.js, import BrowserRouter from react-router-dom
+
+-Wrap your <App /> in <BrowserRouter> tags
+---------------------------------------------------
+3. Add routes 
+-In your App.js, underneath the <Header /> component, create a <Routes> tag with the following:
+    -A <Route /> for the <HomeScreen />
+    -A <Route /> for the <NewRecipeScreen />
+    -A <Route /> for the <DetailScreen />
+code: 
+<Routes>
+    <Route index element={<HomeScreen />} />
+    <Route path="newRecipe" element={<NewRecipeScreen />} />
+    <Route path="recipe/:id" element={<DetailScreen />} />
+</Routes>
+-----------------------------------------------------------
+4. Add link tags to your header 
+-Inside the Header.jsx file, wrap the buttons inside of <Link> tags. Write a to attribute for each Link to match the routes you created.
+code: 
+<nav>
+    <Link to="">
+        <button>Home</button>
+    </Link>
+    <Link to="/newRecipe">
+        <button>Add Recipe</button>
+    </Link>
+</nav>
+-----------------------------------------------------------
+5. Access the API 
+-Inside of HomeScreen.jsx, write a useEffect that makes a get request to the Devmountain Recipe API. Log the response to the console for reference and save the information to state.
+
+-The API you will be accessing is https://recipes.devmountain.com
+
+-The endpoint you need to access is /recipes.
+code: 
+const getRecipes = () => {
+    axios
+        .get("https://recipes.devmountain.com/recipes")
+        .then((res) => {
+            setRecipes(res.data)
+            console.log(res.data)
+        })
+}
+
+useEffect(() => {
+    getRecipes()
+},[])
+-----------------------------------------------------------
+6. Begin the CSS styling of the Header 
+-Style the header to closely match what you see in the wireframe.
+
+-Width should cover the screen
+
+-The navigation buttons should be on the right side of the header, and should match the color of the header (for some extra fun, make the button a lighter color when the mouse hovers on top of them, and add a box shadow.).
+-----------------------------------------------------------
+7. Begin the CSS styling of the Footer 
+-Style the Footer to closely match what you see in the wireframe
+
+-Width should cover the screen
+
+-Height should be around 150px
+
+-The social media icons should be 50px by 50px (wrap the icon in a div, and style the div to be 50px by 50px with a border radius of 50%).
+
+-Many icons (including social media icons) can be found using the react-icons package. Check out their docs here: https://react-icons.github.io/react-icons/
+-----------------------------------------------------------
+

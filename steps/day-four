@@ -1,0 +1,113 @@
+1. Create the form 
+-Inside of the return, under the <h1>, create a form.
+
+-This form will have 7 input tags, 3 radio buttons, and 1 textArea. Make sure to size the inputs to an appropriate size (follow good UI/UX decisions).
+
+-Inputs you will need: recipeName, imageURL, prepTime, cookTime, serves, ingredient, quantity
+
+-textArea: instructions
+
+-Radio buttons: Cook, Bake, Drink
+
+You will need a special way to handle multiple ingredient input, so take that into consideration.
+----------------------------------------------------------
+2. Create initialValues and onSubmit 
+-Create a variable called initialValues
+
+-This will be equal to an object containing the following: type, recipeName, imageURL, prepTime, cookTime, serves, ingredients, and instructions.
+
+-All of these are empty strings except for ingredients. Ingredients is an empty array.
+
+-Create an arrow function called onSubmit that receives values as a parameter and logs the values.
+code: 
+const initialValues = {
+    type: "",
+    recipeName: "",
+    imageURL: "",
+    prepTime: "",
+    cookTime: "",
+    serves: "",
+    ingredients: [],
+    instructions: "",
+};
+
+const onSubmit = (values) => {
+    console.log(values)
+}
+-----------------------------------------------------------
+3. Use Formik to handle the form 
+-We have a form, but we need to alter it a little. Under the <h1> add a <Formik> tag, which will have props for both initialValues and onSubmit.
+
+-Between the opening and closing <Formik> tags, add some curly braces to escape the JSX. In the braces, write a function that immediately returns the form we created earlier.
+
+-We can destructure the values off of the object that gets passed in when this function is called by Formik. The properties we’ll need are: values, handleChange, and handleSubmit.
+code: 
+<Formik initialValues={initialValues} onSubmit={onSubmit}>
+    {({ values, handleChange, handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+            {/* the rest of the form you created */}
+----------------------------------------------------------
+4. Tie the inputs to the formik 
+-For each input (except ingredients and quantity), you will need to have the following attributes:
+    -Placeholder (Create an appropriate placeholder)
+    -Value (will be equal to values.[NAME_OF_TIED_VALUE])
+    -OnChange (equal to handleChange)
+    -Name (equal to the matching name in the initialValues object)
+    code: 
+    <input
+    placeholder="Title your Recipe!"
+    value={values.recipeName}
+    onChange={handleChange}
+    name="recipeName"
+/>
+-----------------------------------------------------------
+5. Handle the ingredients 
+-Ingredients need some special care, and will require us to use State.
+
+-Create a piece of state called ingredients, initialize it to an empty array.
+
+-Create a piece of state called name, and one called quantity. These are both empty strings.
+
+-Create an arrow function called addIngredient.
+
+-It should setIngredients to the previous values, as well as add an object that contains both name and quantity.
+
+-After that, it should set name and quantity back to being empty.
+
+-Tie both the ingredient and quantity input to their appropriate states, including the value and onChange attributes.
+
+-Create a button underneath those inputs with a type of button. Give it an onClick event for addIngredient.
+code: 
+const addIngredient = () => {
+    setIngredients([...ingredients, { name, quantity }]);
+    setName("");
+    setQuantity("");
+};
+
+<input
+    placeholder="Ingredient"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+/>
+<input
+    placeholder="Quantity"
+    value={quantity}
+    onChange={(e) => setQuantity(e.target.value)}
+/>
+<button
+    type="button"
+    className="orange-btn"
+    onClick={addIngredient}
+>
+----------------------------------------------------------
+6. Add your ingredients to the existing values 
+-Inside of your onSubmit, we need to add our ingredients state to the existing values.
+
+-Set values.ingredients equal to ingredients.
+code: 
+const onSubmit = (values) => {
+    values.ingredients = ingredients;
+    console.log(values);
+-----------------------------------------------------------
+7. Check the values
+-It’s time to see if our form works. Fill out your form entirely, including ingredients and instructions. 

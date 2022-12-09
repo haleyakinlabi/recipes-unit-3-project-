@@ -1,0 +1,10 @@
+1. Send the values to the api 
+-Now that we have the values correct, you can send them in a post request to the API.
+
+-The endpoint you want is https://recipes.devmountain.com/recipes
+code: 
+axios
+    .post(`https://recipes.devmountain.com/recipes`, values)
+----------------------------------------------------------
+2. Style the form 
+-You can have <div> tags inside of a form to help organize other tags.

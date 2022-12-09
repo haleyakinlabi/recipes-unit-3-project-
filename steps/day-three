@@ -1,0 +1,61 @@
+1. Add routing to the RecipeCard button
+-The recipe card should take you to /recipe/recipe_id (replace the recipe_id with the id of the individual recipe)
+
+-Make the RecipeCard buttons take you to a dynamic endpoint including the recipe id
+code: 
+const handleClick = () => {
+    navigate(`/recipe/${recipe.recipe_id}`)
+}
+-----------------------------------------------------------
+2. Code out a Static Detial Screen 
+-This page has a lot of styling. Start by organizing fake static information on the screen, then allow for it to be dynamic.
+
+-This page uses a lot of display: flex;
+
+-Do your best to closely match the wireframe.
+
+-This page will take the majority of the day. Take your time.
+-----------------------------------------------------------
+3. Grab the ID from the URL 
+-Now that we have a styled static version of the details page, let’s make it dynamic
+
+-Import useParams from react-router-dom
+
+-Destructure the id from useParams in the component
+code: 
+const DetailScreen = () => {
+    const { id } = useParams();
+    // The rest of your component...
+-----------------------------------------------------------
+4. Make an Axios call with the ID 
+-Now that we have the Recipe ID, we can use it to make an axios call.
+
+-Write out a useEffect that makes an axios call to /recipes/${id}
+
+-Save this response to state
+code: 
+useEffect(() => {
+    axios
+        .get("https://recipes.devmountain.com/recipes/${id}")
+        .then((res) => {
+            setRecipe(res.data);
+        });
+}, []);
+----------------------------------------------------------
+5. Replace the Static information 
+-Now that we have real recipe information, let’s display that rather than our fake static information.
+
+-You will need to reference the state object for title, prep_time, etc.
+
+-Ingredients will need to be mapped over, and return an h4 tag for each ingredient containing the quantity and the ingredient
+
+-The instructions will need to be parsed through and have special styling. Use JSON.parse to parse the instructions, and add the CSS property of whiteSpace: pre-wrap to the <p> that contains the instructions.
+code: 
+{recipe.ingredients && recipe.ingredients.map((ing, index) => {
+    return <h4>{ing.quantity} {ing.ingredient}</h4>
+})}
+
+<p style={{ whiteSpace: "pre-wrap" }}>
+    {recipe.instructions && JSON.parse(recipe.instructions)}
+</p>
+-----------------------------------------------------------

@@ -1,0 +1,66 @@
+1. Style the add banner 
+-The AdBanner component is provided for you. Add the appropriate CSS to closely match the wireframe.
+
+-You will need to use inline styling for a part of this, specifically for the background image.
+
+-The image is provided for you in the starter code. Locate it and import it for use.
+code: 
+style={{
+    background: `linear-gradient(
+        190deg,
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.8)),
+        url(${salmon})`,
+    backgroundSize: "cover",
+}}
+---------------------------------------------------------
+2. Create a RecipeCard component 
+-Create a component called RecipeCard.jsx
+
+-For now, you should code in static values so we can see what the styling will look like.
+
+-You will make it reusable and dynamic later. For now, code in a fake recipe name with fake recipe image (any off google will work for now)
+-----------------------------------------------------------
+3. Style the RecipeCard 
+-The recipe card is on the first screen, and has the image, title, and a button
+-----------------------------------------------------------
+4. Add search input 
+ -Create an input tag somewhere in your HomeScreen that allows you to search for recipes
+
+ -This input should change a state value
+
+ -Style the Input to match the wireframe
+
+ Input Location: 
+ -This input should be inside of a div or span that has a search icon
+
+ Styling: 
+ -You will need to change the border radius of both span and input.
+    code: 
+    <span>
+    <BiSearchAlt2 size="2em" color="#DA7635" />
+    <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search for a Recipe"
+    />
+</span>
+---------------------------------------------------------
+5. Filter and map through the recipes 
+-You will need to filter through the recipes you have on state so that the titles match your search bar.
+
+-You will need to standardize casing so that it does not matter if a user types upper or lowercase letters
+
+-Then you will map through the filtered recipes. Display the mapped recipes in their appropriate place on the screen below the search bar.
+code: 
+const recipeDisplay = recipes
+    .filter((recipe, index) => {
+        let title = recipe.recipe_name.toLowerCase()
+        let searchParams = search.toLowerCase()
+        return title.includes(searchParams)
+    })
+    .map((recipe, index) => {
+        return <RecipeCard recipe={recipe}/>
+    })
+-----------------------------------------------------------
